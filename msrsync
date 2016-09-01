@@ -809,6 +809,7 @@ def rsync_worker(jobs_queue, rsync_opts, dest):
     except KeyboardInterrupt:
         pass
     finally:
+        print "Error copying file",files_from," src:",src," dst:",dest
         jobs_queue.put(StopIteration)
 
 
