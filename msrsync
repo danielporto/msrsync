@@ -549,11 +549,13 @@ def crawl(path, relative=False):
         dir_links = [d for d in dirs if os.path.islink(os.path.join(root, d))]
 
         for name in itertools.chain(files, dir_links):
-            fullpath = os.path.join(root, name)
-            size = os.lstat(fullpath).st_size
-            rpath = fullpath[root_size:]
-            yield size, rpath
-
+            try:
+                fullpath = os.path.join(root, name)
+                size = os.lstat(fullpath).st_size
+                rpath = fullpath[root_size:]
+                yield size, rpath
+            except:
+                print "File "+fullpath+" failed to copy."  
 
 def buckets(path, filesnr, size):
     """
